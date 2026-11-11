@@ -1,0 +1,23 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Description: Points games.engineeradriel.com at GitHub Pages (lonestarx1/games).
+
+Parameters:
+  HostedZoneId:
+    Type: AWS::Route53::HostedZone::Id
+    Description: Route 53 hosted zone for engineeradriel.com
+
+Resources:
+  GamesRecord:
+    Type: AWS::Route53::RecordSet
+    Properties:
+      HostedZoneId: !Ref HostedZoneId
+      Name: games.engineeradriel.com.
+      Type: CNAME
+      TTL: "300"
+      ResourceRecords:
+        - lonestarx1.github.io
+
+Outputs:
+  Record:
+    Description: The DNS name created
+    Value: !Ref GamesRecord

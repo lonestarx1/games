@@ -1,0 +1,54 @@
+<!doctype html>
+<html lang="en" data-theme="modern">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Pocket Arcade</title>
+  <meta name="description" content="Classic browser games, built in Rust and WebAssembly." />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="styles.css" />
+  <script>
+    // Apply the saved theme before first paint to avoid a flash.
+    try { document.documentElement.dataset.theme = localStorage.getItem("arcade:theme") || "modern"; } catch {}
+  </script>
+  <script type="module" src="js/main.js"></script>
+</head>
+<body>
+  <header class="topbar">
+    <a href="#/" class="logo"><span class="logo-mark" aria-hidden="true"></span>Pocket Arcade</a>
+    <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch theme">
+      <span class="opt opt-retro">Retro</span><span class="opt opt-modern">Modern</span>
+    </button>
+  </header>
+
+  <main>
+    <section id="menu" class="view">
+      <h1 class="headline">Pick a game</h1>
+      <p class="sub">Arrow keys to play. Your best score is saved in this browser.</p>
+      <ul id="game-list" class="game-list"></ul>
+    </section>
+
+    <section id="play" class="view" hidden>
+      <div class="hud">
+        <a href="#/" class="back">&larr; Games</a>
+        <h2 id="game-title" class="game-title"></h2>
+        <div class="scores">
+          <div class="score"><span>Score</span><b id="score">0</b></div>
+          <div class="score"><span>Best</span><b id="best">0</b></div>
+        </div>
+      </div>
+      <div class="stage" id="stage">
+        <canvas id="canvas"></canvas>
+        <div class="overlay" id="overlay">
+          <p class="overlay-title" id="overlay-title"></p>
+          <p class="overlay-sub" id="overlay-sub"></p>
+        </div>
+      </div>
+      <div class="actions" id="actions"></div>
+      <p class="help" id="help"></p>
+    </section>
+  </main>
+</body>
+</html>

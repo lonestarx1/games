@@ -1,0 +1,407 @@
+/* Two themes share one layout. Tokens change per [data-theme]. */
+:root,
+:root[data-theme="modern"] {
+  --bg: #070a17;
+  --bg-glow: radial-gradient(1200px 600px at 20% -10%, #1d2a6b55, transparent 60%),
+             radial-gradient(900px 500px at 110% 10%, #5b2a8a44, transparent 60%);
+  --surface: #11162c;
+  --surface-2: #171e3b;
+  --border: #ffffff14;
+  --text: #e8ecff;
+  --muted: #9aa3c7;
+  --accent: #7cf2ff;
+  --accent-2: #8f7cff;
+  --radius: 16px;
+  --font: "Space Grotesk", system-ui, sans-serif;
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --title-size: clamp(2rem, 5vw, 3rem);
+  --shadow: 0 20px 60px #0008;
+  color-scheme: dark;
+}
+
+:root[data-theme="retro"] {
+  --bg: #1d2116;
+  --bg-glow: none;
+  --surface: #c3cf9b;
+  --surface-2: #b7c48f;
+  --border: #2c3a23;
+  --text: #2c3a23;
+  --muted: #4c5c3c;
+  --accent: #2c3a23;
+  --accent-2: #2c3a23;
+  --radius: 0px;
+  --font: "Press Start 2P", ui-monospace, monospace;
+  --font-display: "Press Start 2P", ui-monospace, monospace;
+  --title-size: clamp(1.1rem, 3.5vw, 1.6rem);
+  --shadow: none;
+  color-scheme: light;
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  min-height: 100vh;
+  background: var(--bg-glow), var(--bg);
+  color: var(--text);
+  font-family: var(--font);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Retro: the whole page sits inside a phone-style LCD panel. */
+:root[data-theme="retro"] body {
+  background: var(--bg);
+  padding: 16px;
+}
+:root[data-theme="retro"] .topbar,
+:root[data-theme="retro"] main {
+  background: var(--surface);
+  max-width: 760px;
+  margin-inline: auto;
+}
+:root[data-theme="retro"] .topbar {
+  border: 4px solid #0e120a;
+  border-bottom: none;
+}
+:root[data-theme="retro"] main {
+  border: 4px solid #0e120a;
+  border-top: 4px dashed var(--border);
+  min-height: calc(100vh - 32px - 72px);
+}
+
+[hidden] { display: none !important; }
+
+a { color: inherit; }
+
+/* ---------- top bar ---------- */
+.topbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 16px clamp(16px, 4vw, 32px);
+  max-width: 1080px;
+  margin: 0 auto;
+}
+
+.logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 1.1rem;
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+:root[data-theme="retro"] .logo { font-size: 0.75rem; }
+
+.logo-mark {
+  width: 22px;
+  height: 22px;
+  border-radius: 6px;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  box-shadow: 0 0 18px #7cf2ff66;
+}
+:root[data-theme="retro"] .logo-mark {
+  border-radius: 0;
+  box-shadow: none;
+  background:
+    linear-gradient(var(--text) 0 0) 0 0 / 8px 8px no-repeat,
+    linear-gradient(var(--text) 0 0) 14px 0 / 8px 8px no-repeat,
+    linear-gradient(var(--text) 0 0) 7px 14px / 8px 8px no-repeat;
+}
+
+.theme-toggle {
+  display: inline-flex;
+  padding: 4px;
+  gap: 2px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: inherit;
+  font-size: 0.85rem;
+  cursor: pointer;
+}
+.theme-toggle .opt { padding: 6px 14px; border-radius: 999px; }
+:root[data-theme="modern"] .opt-modern,
+:root[data-theme="retro"] .opt-retro {
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  color: #070a17;
+  font-weight: 700;
+}
+:root[data-theme="retro"] .theme-toggle {
+  border: 3px solid var(--border);
+  border-radius: 0;
+  background: var(--surface-2);
+  font-size: 0.6rem;
+}
+:root[data-theme="retro"] .theme-toggle .opt { border-radius: 0; }
+:root[data-theme="retro"] .opt-retro { background: var(--text); color: var(--surface); }
+.theme-toggle:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* ---------- views ---------- */
+main { padding: 0 clamp(16px, 4vw, 32px) 48px; max-width: 1080px; margin: 0 auto; }
+.view { padding-top: clamp(16px, 4vw, 40px); }
+
+.headline {
+  font-family: var(--font-display);
+  font-size: var(--title-size);
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  margin: 0 0 8px;
+}
+:root[data-theme="retro"] .headline { letter-spacing: 0; line-height: 1.5; }
+
+.sub { color: var(--muted); margin: 0 0 32px; }
+:root[data-theme="retro"] .sub { font-size: 0.6rem; line-height: 2; }
+
+/* ---------- menu cards ---------- */
+.game-list {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr));
+  gap: 20px;
+}
+
+.card {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  text-decoration: none;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  overflow: hidden;
+  transition: transform 0.15s ease, border-color 0.15s ease, box-shadow 0.15s ease;
+}
+.card:hover, .card:focus-visible {
+  transform: translateY(-3px);
+  border-color: #7cf2ff55;
+  box-shadow: var(--shadow), 0 0 0 1px #7cf2ff33;
+  outline: none;
+}
+:root[data-theme="retro"] .card { border: 3px solid var(--border); background: var(--surface-2); }
+:root[data-theme="retro"] .card:hover,
+:root[data-theme="retro"] .card:focus-visible { transform: none; box-shadow: 6px 6px 0 var(--border); }
+
+.card-body { display: flex; flex-direction: column; gap: 6px; padding: 18px 20px 20px; }
+.card-title { font-family: var(--font-display); font-weight: 700; font-size: 1.3rem; }
+.card-blurb { color: var(--muted); font-size: 0.95rem; }
+.card-best { margin-top: 8px; font-size: 0.85rem; color: var(--muted); }
+.card-best b { color: var(--accent); }
+:root[data-theme="retro"] .card-title { font-size: 0.85rem; }
+:root[data-theme="retro"] .card-blurb,
+:root[data-theme="retro"] .card-best { font-size: 0.55rem; line-height: 2; }
+:root[data-theme="retro"] .card-best b { color: var(--text); }
+
+/* Little CSS-drawn previews. */
+.card-art { display: block; aspect-ratio: 16 / 7; position: relative; background: #0b1020; }
+.card-art::before, .card-art::after { content: ""; position: absolute; }
+
+.art-snake::before { /* snake body */
+  left: 18%; top: 42%; width: 46%; height: 16%;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #1f8fa3, #8affc1);
+  box-shadow: 0 0 20px #8affc155;
+}
+.art-snake::after { /* food */
+  left: 76%; top: 44%; width: 12px; height: 12px; border-radius: 50%;
+  background: #ff4f7b; box-shadow: 0 0 16px #ff4f7b;
+}
+
+.art-bricks {
+  background:
+    linear-gradient(#ff5d8f 0 0) 8% 18% / 18% 12% no-repeat,
+    linear-gradient(#ffc857 0 0) 30% 18% / 18% 12% no-repeat,
+    linear-gradient(#4dd4ac 0 0) 52% 18% / 18% 12% no-repeat,
+    linear-gradient(#8f7cff 0 0) 74% 18% / 18% 12% no-repeat,
+    linear-gradient(#ff8a5b 0 0) 19% 36% / 18% 12% no-repeat,
+    linear-gradient(#4cc9f0 0 0) 63% 36% / 18% 12% no-repeat,
+    linear-gradient(180deg, #141838, #090c1c);
+}
+.art-bricks::before { /* ball */
+  left: 48%; top: 56%; width: 12px; height: 12px; border-radius: 50%;
+  background: #fff; box-shadow: 0 0 14px #bde7ff;
+}
+.art-bricks::after { /* paddle */
+  left: 38%; bottom: 12%; width: 24%; height: 8px; border-radius: 6px;
+  background: linear-gradient(90deg, #7cf2ff, #8f7cff); box-shadow: 0 0 14px #7cc8ff;
+}
+
+:root[data-theme="retro"] .card-art {
+  background: var(--surface);
+  border-bottom: 3px solid var(--border);
+}
+:root[data-theme="retro"] .art-snake::before {
+  border-radius: 0; box-shadow: none; height: 14%;
+  background: repeating-linear-gradient(90deg, var(--text) 0 14px, var(--surface) 14px 16px);
+}
+:root[data-theme="retro"] .art-snake::after { border-radius: 0; box-shadow: none; background: var(--text); }
+:root[data-theme="retro"] .art-bricks {
+  background:
+    repeating-linear-gradient(90deg, var(--text) 0 36px, transparent 36px 40px) 8px 14px / calc(100% - 16px) 14px no-repeat,
+    repeating-linear-gradient(90deg, var(--text) 0 36px, transparent 36px 40px) 8px 34px / calc(100% - 16px) 14px no-repeat,
+    var(--surface);
+}
+:root[data-theme="retro"] .art-bricks::before,
+:root[data-theme="retro"] .art-bricks::after { border-radius: 0; box-shadow: none; background: var(--text); }
+
+.art-mahjong {
+  background:
+    linear-gradient(#fbf7ec 0 0) 30% 30% / 11% 38% no-repeat,
+    linear-gradient(#d9c9a0 0 0) calc(30% + 4px) calc(30% + 4px) / 11% 38% no-repeat,
+    linear-gradient(#fbf7ec 0 0) 44.5% 30% / 11% 38% no-repeat,
+    linear-gradient(#d9c9a0 0 0) calc(44.5% + 4px) calc(30% + 4px) / 11% 38% no-repeat,
+    linear-gradient(#fbf7ec 0 0) 59% 30% / 11% 38% no-repeat,
+    linear-gradient(#d9c9a0 0 0) calc(59% + 4px) calc(30% + 4px) / 11% 38% no-repeat,
+    linear-gradient(180deg, #123236, #081619);
+}
+.art-mahjong::before { /* red centre mark on the middle tile */
+  left: calc(50% - 7px); top: calc(49% - 7px); width: 14px; height: 14px; border-radius: 50%;
+  border: 4px solid #d33a3a; box-sizing: border-box;
+}
+.art-mahjong::after { /* selected tile glow */
+  left: 59%; top: 30%; width: 11%; height: 38%; border-radius: 3px;
+  box-shadow: 0 0 0 2px #1aa6d9, 0 0 16px #1aa6d9aa;
+}
+:root[data-theme="retro"] .art-mahjong {
+  background:
+    linear-gradient(var(--text) 0 0) calc(30% + 4px) calc(30% + 4px) / 11% 38% no-repeat,
+    linear-gradient(var(--text) 0 0) calc(44.5% + 4px) calc(30% + 4px) / 11% 38% no-repeat,
+    linear-gradient(var(--text) 0 0) calc(59% + 4px) calc(30% + 4px) / 11% 38% no-repeat,
+    linear-gradient(var(--surface-2) 0 0) 30% 30% / 11% 38% no-repeat,
+    linear-gradient(var(--surface-2) 0 0) 44.5% 30% / 11% 38% no-repeat,
+    linear-gradient(var(--surface-2) 0 0) 59% 30% / 11% 38% no-repeat,
+    var(--surface);
+}
+:root[data-theme="retro"] .art-mahjong::before { border-radius: 0; border-color: var(--text); }
+:root[data-theme="retro"] .art-mahjong::after { border-radius: 0; box-shadow: 0 0 0 3px var(--text); }
+
+/* ---------- play view ---------- */
+.hud {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  flex-wrap: wrap;
+  margin-bottom: 16px;
+}
+.back {
+  text-decoration: none;
+  color: var(--muted);
+  font-size: 0.9rem;
+  padding: 6px 12px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+}
+.back:hover { color: var(--text); }
+.game-title { margin: 0; font-family: var(--font-display); font-size: 1.4rem; flex: 1; }
+.scores { display: flex; gap: 10px; }
+.score {
+  display: flex; flex-direction: column; align-items: flex-end;
+  min-width: 84px; padding: 6px 14px;
+  background: var(--surface); border: 1px solid var(--border); border-radius: 12px;
+}
+.score span { font-size: 0.7rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--muted); }
+.score b { font-size: 1.25rem; font-variant-numeric: tabular-nums; }
+
+:root[data-theme="retro"] .back { border: 3px solid var(--border); border-radius: 0; font-size: 0.55rem; color: var(--text); }
+:root[data-theme="retro"] .game-title { font-size: 0.8rem; }
+:root[data-theme="retro"] .score { border: 3px solid var(--border); border-radius: 0; background: var(--surface-2); }
+:root[data-theme="retro"] .score span { font-size: 0.45rem; color: var(--text); }
+:root[data-theme="retro"] .score b { font-size: 0.75rem; margin-top: 4px; }
+
+.stage {
+  position: relative;
+  /* Fit the canvas inside the viewport whatever its aspect ratio. */
+  width: min(100%, calc((100vh - 300px) * var(--aspect, 1)));
+  margin: 0 auto;
+  border-radius: var(--radius);
+  overflow: hidden;
+  border: 1px solid var(--border);
+  box-shadow: var(--shadow);
+}
+.stage canvas { display: block; width: 100%; height: auto; }
+
+:root[data-theme="retro"] .stage {
+  border: 6px solid #0e120a;
+  box-shadow: 0 0 0 3px var(--border);
+}
+:root[data-theme="retro"] .stage canvas { image-rendering: pixelated; }
+/* Faint LCD scan lines in retro mode. */
+:root[data-theme="retro"] .stage::after {
+  content: "";
+  position: absolute; inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(0deg, #00000010 0 1px, transparent 1px 3px);
+}
+
+.overlay {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 16px;
+  text-align: center;
+  background: #070a17a6;
+  backdrop-filter: blur(4px);
+  z-index: 1;
+}
+.overlay-title {
+  margin: 0;
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: clamp(1.6rem, 5vw, 2.4rem);
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.overlay-sub { margin: 0; color: var(--text); opacity: 0.85; }
+
+:root[data-theme="retro"] .overlay { background: #c3cf9bd9; backdrop-filter: none; }
+:root[data-theme="retro"] .overlay-title { font-size: clamp(0.9rem, 3vw, 1.2rem); background: none; color: var(--text); }
+:root[data-theme="retro"] .overlay-sub { font-size: 0.55rem; line-height: 2; }
+
+.stage canvas.pointer { cursor: pointer; touch-action: none; }
+.overlay { cursor: pointer; }
+
+.actions { display: flex; justify-content: center; flex-wrap: wrap; gap: 8px; margin-top: 14px; }
+.actions:empty { display: none; }
+.action {
+  font: inherit;
+  font-size: 0.9rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 8px 16px;
+  cursor: pointer;
+}
+.action:hover { border-color: #7cf2ff55; }
+:root[data-theme="retro"] .action {
+  border: 3px solid var(--border);
+  border-radius: 0;
+  background: var(--surface-2);
+  font-size: 0.55rem;
+}
+:root[data-theme="retro"] .action:active { background: var(--text); color: var(--surface); }
+
+.help { text-align: center; color: var(--muted); font-size: 0.9rem; margin-top: 14px; }
+:root[data-theme="retro"] .help { font-size: 0.55rem; }
+
+@media (max-width: 520px) {
+  .game-title { flex-basis: 100%; order: -1; }
+  .scores { margin-left: auto; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card { transition: none; }
+}
