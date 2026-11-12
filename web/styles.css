@@ -282,6 +282,122 @@ main { padding: 0 clamp(16px, 4vw, 32px) 48px; max-width: 1080px; margin: 0 auto
 :root[data-theme="retro"] .art-mahjong::before { border-radius: 0; border-color: var(--text); }
 :root[data-theme="retro"] .art-mahjong::after { border-radius: 0; box-shadow: 0 0 0 3px var(--text); }
 
+.art-blockdrop {
+  background:
+    /* falling shape */
+    linear-gradient(#f4f7ff 0 0) 47% 12% / 6% 16% no-repeat,
+    linear-gradient(#f4f7ff 0 0) 41% 28% / 18% 16% no-repeat,
+    /* landing beam */
+    linear-gradient(#ffffff00, #ffffff1f) 41% 44% / 18% 24% no-repeat,
+    /* pile, shaded by height */
+    linear-gradient(#ff5f6d 0 0) 12% 88% / 76% 16% no-repeat,
+    linear-gradient(#ff8f6f 0 0) 12% 70% / 24% 16% no-repeat,
+    linear-gradient(#ff8f6f 0 0) 62% 70% / 26% 16% no-repeat,
+    linear-gradient(#ffb070 0 0) 12% 54% / 12% 16% no-repeat,
+    linear-gradient(180deg, #11183a, #090c1c);
+}
+.art-blockdrop::before { /* bomb */
+  left: 74%; top: 34%; width: 16px; height: 16px; border-radius: 50%;
+  background: #1b1f33; box-shadow: 6px -6px 0 -4px #ffb347, 0 0 0 2px #f4f7ff;
+}
+:root[data-theme="retro"] .art-blockdrop {
+  background:
+    linear-gradient(var(--text) 0 0) 47% 12% / 6% 16% no-repeat,
+    linear-gradient(var(--text) 0 0) 41% 28% / 18% 16% no-repeat,
+    linear-gradient(var(--text) 0 0) 12% 88% / 76% 16% no-repeat,
+    linear-gradient(var(--text) 0 0) 12% 70% / 24% 16% no-repeat,
+    linear-gradient(var(--text) 0 0) 62% 70% / 26% 16% no-repeat,
+    var(--surface);
+}
+:root[data-theme="retro"] .art-blockdrop::before { border-radius: 0; background: var(--text); box-shadow: none; }
+
+/* "How to play" button sitting on each menu card. */
+.game-list li { position: relative; }
+.card-help {
+  position: absolute; top: 10px; right: 10px;
+  font: inherit; font-size: 0.8rem; font-weight: 500;
+  color: var(--text);
+  background: #070a17b3;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 5px 12px;
+  cursor: pointer;
+  backdrop-filter: blur(6px);
+}
+.card-help:hover, .card-help:focus-visible { border-color: #7cf2ff88; outline: none; }
+:root[data-theme="retro"] .card-help {
+  font-size: 0.5rem; border: 3px solid var(--border); border-radius: 0;
+  background: var(--surface); backdrop-filter: none;
+}
+:root[data-theme="retro"] .card-help:hover { background: var(--text); color: var(--surface); }
+
+/* ---------- how to play ---------- */
+.howto-open {
+  font: inherit; font-size: 0.85rem;
+  color: var(--text);
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  padding: 6px 14px;
+  cursor: pointer;
+}
+.howto-open:hover { border-color: #7cf2ff55; }
+:root[data-theme="retro"] .howto-open { font-size: 0.5rem; border: 3px solid var(--border); border-radius: 0; background: var(--surface-2); }
+
+.howto {
+  width: min(560px, calc(100vw - 32px));
+  max-height: calc(100vh - 32px);
+  padding: 0;
+  border: 1px solid var(--border);
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow);
+}
+.howto::backdrop { background: #03050dcc; backdrop-filter: blur(4px); }
+.howto-card { position: relative; padding: 28px clamp(20px, 5vw, 32px) 24px; }
+.howto-x {
+  position: absolute; top: 12px; right: 12px;
+  width: 36px; height: 36px;
+  font: inherit; font-size: 1.4rem; line-height: 1;
+  color: var(--muted); background: none; border: none; border-radius: 50%; cursor: pointer;
+}
+.howto-x:hover { color: var(--text); background: var(--surface-2); }
+.howto-kicker {
+  margin: 0; font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.14em;
+  color: var(--accent);
+}
+.howto-title { margin: 4px 0 12px; font-family: var(--font-display); font-size: 1.8rem; letter-spacing: -0.02em; }
+.howto-goal { margin: 0 0 8px; font-size: 1.05rem; }
+.howto h3 {
+  margin: 22px 0 8px; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted);
+}
+.howto-list { margin: 0; padding-left: 1.3em; display: grid; gap: 6px; }
+.howto-keys { width: 100%; border-collapse: collapse; }
+.howto-keys th, .howto-keys td { text-align: left; padding: 7px 0; border-top: 1px solid var(--border); vertical-align: top; }
+.howto-keys tr:first-child th, .howto-keys tr:first-child td { border-top: none; }
+.howto-keys th { width: 42%; padding-right: 12px; font-weight: 700; color: var(--accent); white-space: nowrap; }
+.howto-ok {
+  display: block; width: 100%; margin-top: 26px; padding: 12px 18px;
+  font: inherit; font-weight: 700; font-size: 1rem;
+  color: #070a17;
+  background: linear-gradient(135deg, var(--accent), var(--accent-2));
+  border: none; border-radius: 999px; cursor: pointer;
+}
+.howto-ok:focus-visible, .howto-x:focus-visible { outline: 2px solid var(--accent); outline-offset: 3px; }
+
+:root[data-theme="retro"] .howto { border: 4px solid #0e120a; box-shadow: 0 0 0 3px var(--border), 8px 8px 0 #0e120a; }
+:root[data-theme="retro"] .howto::backdrop { background: #1d2116d9; backdrop-filter: none; }
+:root[data-theme="retro"] .howto-card { font-size: 0.55rem; line-height: 2; }
+:root[data-theme="retro"] .howto-kicker { font-size: 0.5rem; letter-spacing: 0.05em; }
+:root[data-theme="retro"] .howto-title { font-size: 1rem; letter-spacing: 0; line-height: 1.5; }
+:root[data-theme="retro"] .howto-goal { font-size: 0.6rem; }
+:root[data-theme="retro"] .howto h3 { font-size: 0.5rem; letter-spacing: 0.05em; color: var(--text); }
+:root[data-theme="retro"] .howto-keys th, :root[data-theme="retro"] .howto-keys td { border-top: 2px dashed var(--border); }
+:root[data-theme="retro"] .howto-keys th { color: var(--text); white-space: normal; }
+:root[data-theme="retro"] .howto-ok { font-size: 0.6rem; border-radius: 0; background: var(--text); color: var(--surface); }
+:root[data-theme="retro"] .howto-x { border-radius: 0; color: var(--text); }
+
 /* ---------- play view ---------- */
 .hud {
   display: flex;

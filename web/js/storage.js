@@ -25,3 +25,12 @@ export function getTheme() {
 export function setTheme(theme) {
   write("arcade:theme", theme);
 }
+
+// Whether the "How to play" card has been shown for a game.
+export function hasSeenHowto(gameId) {
+  return read(`arcade:howto:${gameId}`) === "1";
+}
+
+export function markHowtoSeen(gameId) {
+  write(`arcade:howto:${gameId}`, 1);
+}

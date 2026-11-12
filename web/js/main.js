@@ -1,5 +1,5 @@
 import { GAMES } from "./games.js";
-import { getBest, setBest, getTheme, setTheme } from "./storage.js";
+import { getBest, setBest, getTheme, setTheme, hasSeenHowto, markHowtoSeen } from "./storage.js";
 
 // Must match engine::GameState.
 const STATE = { READY: 0, PLAYING: 1, PAUSED: 2, OVER: 3 };
@@ -15,6 +15,9 @@ const els = {
   overlayTitle: $("overlay-title"), overlaySub: $("overlay-sub"), help: $("help"),
   actions: $("actions"),
   themeToggle: $("theme-toggle"),
+  howto: $("howto"), howtoOpen: $("howto-open"), howtoTitle: $("howto-title"),
+  howtoGoal: $("howto-goal"), howtoRules: $("howto-rules"), howtoControls: $("howto-controls"),
+  howtoTips: $("howto-tips"), howtoTipsTitle: $("howto-tips-title"), howtoOk: $("howto-ok"),
 };
 
 let theme = getTheme();
@@ -43,13 +46,57 @@ function renderMenu() {
           <span class="card-blurb"></span>
           <span class="card-best">Best <b></b></span>
         </span>
-      </a>`;
+      </a>
+      <button class="card-help" type="button">How to play</button>`;
     li.querySelector(".card-title").textContent = g.title;
     li.querySelector(".card-blurb").textContent = g.blurb;
     li.querySelector(".card-best b").textContent = getBest(g.id);
+    const help = li.querySelector(".card-help");
+    help.setAttribute("aria-label", `How to play ${g.title}`);
+    help.addEventListener("click", () => openHowto(g, false));
     return li;
   }));
 }
+
+// ---------- how to play ----------
+function el(tag, text) {
+  const e = document.createElement(tag);
+  e.textContent = text;
+  return e;
+}
+
+// `inGame` changes the button: from the menu it starts the game.
+function openHowto(meta, inGame) {
+  const h = meta.howto;
+  if (!h) return;
+  session?.game.pause();
+  els.howtoTitle.textContent = meta.title;
+  els.howtoGoal.textContent = h.goal;
+  els.howtoRules.replaceChildren(...h.rules.map((r) => el("li", r)));
+  els.howtoControls.replaceChildren(...h.controls.map(([keys, does]) => {
+    const tr = document.createElement("tr");
+    const th = el("th", keys);
+    th.scope = "row";
+    tr.append(th, el("td", does));
+    return tr;
+  }));
+  const tips = h.tips ?? [];
+  els.howtoTips.replaceChildren(...tips.map((t) => el("li", t)));
+  els.howtoTips.hidden = els.howtoTipsTitle.hidden = tips.length === 0;
+  els.howtoOk.textContent = inGame ? "Got it, let's play" : `Play ${meta.title}`;
+  els.howto.dataset.game = inGame ? "" : meta.id;
+  markHowtoSeen(meta.id);
+  els.howto.showModal();
+  els.howto.scrollTop = 0;
+}
+
+els.howtoOpen.addEventListener("click", () => session && openHowto(session.meta, true));
+els.howto.addEventListener("close", () => {
+  const id = els.howto.dataset.game;
+  if (id && els.howto.returnValue === "ok") location.hash = `#/${id}`;
+});
+// Clicking the dimmed backdrop closes the card.
+els.howto.addEventListener("click", (e) => { if (e.target === els.howto) els.howto.close(); });
 
 // ---------- game session ----------
 async function loadModule(meta) {
@@ -74,7 +121,10 @@ async function startGame(meta) {
   els.help.textContent = meta.help;
   els.canvas.classList.toggle("pointer", !!meta.pointer);
   renderActions(meta);
+  els.howtoOpen.hidden = !meta.howto;
   showOverlay("Loading…", "");
+  // First time playing this game: show the rules before anything else.
+  if (meta.howto && !hasSeenHowto(meta.id)) openHowto(meta, true);
 
   let mod;
   try {
@@ -155,13 +205,13 @@ function hideOverlay() { els.overlay.hidden = true; }
 
 // ---------- input ----------
 window.addEventListener("keydown", (e) => {
-  if (!session || e.metaKey || e.ctrlKey || e.altKey) return;
+  if (!session || els.howto.open || e.metaKey || e.ctrlKey || e.altKey) return;
   if (GAME_KEYS.has(e.code)) e.preventDefault();
   if (e.repeat) return; // held keys are tracked via keydown/keyup pairs
   session.game.key_down(e.code);
 });
 window.addEventListener("keyup", (e) => {
-  if (session) session.game.key_up(e.code);
+  if (session && !els.howto.open) session.game.key_up(e.code);
 });
 // Mouse / touch, converted to the game's logical coordinates.
 function toLogical(e) {
@@ -211,6 +261,7 @@ function route() {
   const meta = GAMES.find((g) => g.id === id);
   els.menu.hidden = !!meta;
   els.play.hidden = !meta;
+  if (els.howto.open && els.howto.dataset.game !== meta?.id) els.howto.close();
   if (meta) {
     startGame(meta);
   } else {

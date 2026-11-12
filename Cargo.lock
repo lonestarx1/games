@@ -3,6 +3,14 @@
 version = 4
 
 [[package]]
+name = "blockdrop"
+version = "0.1.0"
+dependencies = [
+ "engine",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "bricks"
 version = "0.1.0"
 dependencies = [

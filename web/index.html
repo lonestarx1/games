@@ -34,6 +34,7 @@
       <div class="hud">
         <a href="#/" class="back">&larr; Games</a>
         <h2 id="game-title" class="game-title"></h2>
+        <button id="howto-open" class="howto-open" type="button">How to play</button>
         <div class="scores">
           <div class="score"><span>Score</span><b id="score">0</b></div>
           <div class="score"><span>Best</span><b id="best">0</b></div>
@@ -50,5 +51,22 @@
       <p class="help" id="help"></p>
     </section>
   </main>
+
+  <!-- Beginner's rules card, filled from the game's `howto` in games.js. -->
+  <dialog id="howto" class="howto" aria-labelledby="howto-title">
+    <form method="dialog" class="howto-card">
+      <button class="howto-x" value="close" aria-label="Close">&times;</button>
+      <p class="howto-kicker">How to play</p>
+      <h2 id="howto-title" class="howto-title"></h2>
+      <p id="howto-goal" class="howto-goal"></p>
+      <h3>Rules</h3>
+      <ol id="howto-rules" class="howto-list"></ol>
+      <h3>Controls</h3>
+      <table class="howto-keys"><tbody id="howto-controls"></tbody></table>
+      <h3 id="howto-tips-title">Tips</h3>
+      <ul id="howto-tips" class="howto-list"></ul>
+      <button class="howto-ok" value="ok" id="howto-ok">Got it, let's play</button>
+    </form>
+  </dialog>
 </body>
 </html>
