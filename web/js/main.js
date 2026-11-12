@@ -221,11 +221,49 @@ function toLogical(e) {
     (e.clientY - r.top) * (session.game.height() / r.height),
   ];
 }
+// Right-click sends pointer_alt. On touch, games with `longPress` get a tap
+// on release, and a press held still for LONG_PRESS_MS becomes pointer_alt.
+const LONG_PRESS_MS = 450;
+let press = null; // pending touch press: { game, x, y, cx, cy, timer }
+function cancelPress() {
+  if (press) clearTimeout(press.timer);
+  press = null;
+}
+els.canvas.addEventListener("contextmenu", (e) => { if (session?.meta.pointer) e.preventDefault(); });
 els.canvas.addEventListener("pointerdown", (e) => {
   if (!session) return;
-  if (session.game.pointer_down(...toLogical(e))) e.preventDefault();
+  const [x, y] = toLogical(e);
+  if (e.button === 2) {
+    if (session.game.pointer_alt(x, y)) e.preventDefault();
+    return;
+  }
+  if (e.button !== 0) return;
+  if (e.pointerType === "touch" && session.meta.longPress) {
+    e.preventDefault();
+    cancelPress();
+    const game = session.game;
+    press = {
+      game, x, y, cx: e.clientX, cy: e.clientY,
+      timer: setTimeout(() => {
+        press = null;
+        if (session?.game === game && game.pointer_alt(x, y)) navigator.vibrate?.(25);
+      }, LONG_PRESS_MS),
+    };
+    return;
+  }
+  if (session.game.pointer_down(x, y)) e.preventDefault();
 });
-els.canvas.addEventListener("pointermove", (e) => { if (session) session.game.pointer_move(...toLogical(e)); });
+els.canvas.addEventListener("pointerup", () => {
+  if (!press) return;
+  const { game, x, y } = press;
+  cancelPress();
+  if (session?.game === game) game.pointer_down(x, y);
+});
+els.canvas.addEventListener("pointercancel", cancelPress);
+els.canvas.addEventListener("pointermove", (e) => {
+  if (press && Math.hypot(e.clientX - press.cx, e.clientY - press.cy) > 12) cancelPress();
+  if (session) session.game.pointer_move(...toLogical(e));
+});
 els.canvas.addEventListener("pointerleave", () => { if (session) session.game.pointer_move(-1, -1); });
 // Clicking the overlay acts like Space (start / resume / play again).
 els.overlay.addEventListener("click", () => {

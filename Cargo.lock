@@ -82,6 +82,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "minefinder"
+version = "0.1.0"
+dependencies = [
+ "engine",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "pin-project-lite"
 version = "0.2.17"
 source = "registry+https://github.com/rust-lang/crates.io-index"

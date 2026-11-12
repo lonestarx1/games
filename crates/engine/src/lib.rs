@@ -64,6 +64,11 @@ pub trait Game {
     fn pointer_down(&mut self, _x: f64, _y: f64) -> bool {
         false
     }
+    /// Secondary press (right-click, or long-press on touch when the game's
+    /// catalogue entry sets `longPress`). Return true if used.
+    fn pointer_alt(&mut self, _x: f64, _y: f64) -> bool {
+        false
+    }
     /// Pointer moved; (-1, -1) means it left the canvas.
     fn pointer_move(&mut self, _x: f64, _y: f64) {}
     /// Custom game-over title (e.g. "Board cleared!"). None uses the default.
@@ -135,6 +140,9 @@ macro_rules! export_game {
                 }
                 pub fn pointer_down(&mut self, x: f64, y: f64) -> bool {
                     self.game.pointer_down(x, y)
+                }
+                pub fn pointer_alt(&mut self, x: f64, y: f64) -> bool {
+                    self.game.pointer_alt(x, y)
                 }
                 pub fn pointer_move(&mut self, x: f64, y: f64) {
                     self.game.pointer_move(x, y);

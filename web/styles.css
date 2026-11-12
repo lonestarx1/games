@@ -311,6 +311,50 @@ main { padding: 0 clamp(16px, 4vw, 32px) 48px; max-width: 1080px; margin: 0 auto
 }
 :root[data-theme="retro"] .art-blockdrop::before { border-radius: 0; background: var(--text); box-shadow: none; }
 
+.art-minefinder {
+  /* A 3 x 3 patch: closed tiles, opened squares with clue numbers, a flag. */
+  background:
+    linear-gradient(#26305c 0 0) 34% 22% / 9% 20% no-repeat,
+    linear-gradient(#26305c 0 0) 44% 22% / 9% 20% no-repeat,
+    linear-gradient(#26305c 0 0) 54% 22% / 9% 20% no-repeat,
+    linear-gradient(#26305c 0 0) 64% 22% / 9% 20% no-repeat,
+    linear-gradient(#121831 0 0) 34% 50% / 9% 20% no-repeat,
+    linear-gradient(#121831 0 0) 44% 50% / 9% 20% no-repeat,
+    linear-gradient(#26305c 0 0) 54% 50% / 9% 20% no-repeat,
+    linear-gradient(#26305c 0 0) 64% 50% / 9% 20% no-repeat,
+    linear-gradient(#121831 0 0) 34% 78% / 9% 20% no-repeat,
+    linear-gradient(#121831 0 0) 44% 78% / 9% 20% no-repeat,
+    linear-gradient(#121831 0 0) 54% 78% / 9% 20% no-repeat,
+    linear-gradient(#26305c 0 0) 64% 78% / 9% 20% no-repeat,
+    linear-gradient(180deg, #0f1530, #090c1c);
+}
+.art-minefinder::before { /* clue numbers */
+  content: "1    2";
+  white-space: pre;
+  left: 37%; top: 46%;
+  font: 700 18px "Space Grotesk", sans-serif;
+  color: #5cc8ff;
+  text-shadow: 54px 32px 0 #6ee7a8;
+}
+.art-minefinder::after { /* flag */
+  left: 56.5%; top: 52%; width: 0; height: 0;
+  border-left: 14px solid #ffc857; border-top: 7px solid transparent; border-bottom: 7px solid transparent;
+  filter: drop-shadow(0 0 6px #ffc857aa);
+}
+:root[data-theme="retro"] .art-minefinder {
+  background:
+    linear-gradient(var(--text) 0 0) 34% 22% / 9% 20% no-repeat,
+    linear-gradient(var(--text) 0 0) 44% 22% / 9% 20% no-repeat,
+    linear-gradient(var(--text) 0 0) 54% 22% / 9% 20% no-repeat,
+    linear-gradient(var(--text) 0 0) 64% 22% / 9% 20% no-repeat,
+    linear-gradient(var(--text) 0 0) 54% 50% / 9% 20% no-repeat,
+    linear-gradient(var(--text) 0 0) 64% 50% / 9% 20% no-repeat,
+    linear-gradient(var(--text) 0 0) 64% 78% / 9% 20% no-repeat,
+    var(--surface);
+}
+:root[data-theme="retro"] .art-minefinder::before { font: 12px "Press Start 2P", monospace; color: var(--text); text-shadow: 54px 32px 0 var(--text); }
+:root[data-theme="retro"] .art-minefinder::after { border-left-color: var(--surface); filter: none; }
+
 /* "How to play" button sitting on each menu card. */
 .game-list li { position: relative; }
 .card-help {
