@@ -464,6 +464,32 @@ main { padding: 0 clamp(16px, 4vw, 32px) 48px; max-width: 1080px; margin: 0 auto
 :root[data-theme="retro"] .art-stardefender::before { background: var(--text); filter: none; }
 :root[data-theme="retro"] .art-stardefender::after { background: var(--text); box-shadow: none; border-radius: 0; }
 
+.art-roadhopper {
+  background:
+    /* car and log */
+    linear-gradient(#ff5d6c 0 0) 22% 31% / 14% 13% no-repeat,
+    linear-gradient(#8a5a34 0 0) 62% 74% / 26% 13% no-repeat,
+    /* lanes: grass, road, grass, river, grass */
+    linear-gradient(#46995a 0 0) 0 0 / 100% 20% no-repeat,
+    linear-gradient(#2a2f3a 0 0) 0 25% / 100% 22% no-repeat,
+    linear-gradient(#3f8f4e 0 0) 0 50% / 100% 20% no-repeat,
+    linear-gradient(#2e6fb5 0 0) 0 77% / 100% 22% no-repeat,
+    #46995a;
+}
+.art-roadhopper::before { /* bunny */
+  left: calc(50% - 9px); top: 46%; width: 18px; height: 16px; border-radius: 50%;
+  background: #f4f1ea;
+  box-shadow: -4px -12px 0 -5px #f4f1ea, 4px -12px 0 -5px #f4f1ea;
+}
+:root[data-theme="retro"] .art-roadhopper {
+  background:
+    linear-gradient(var(--text) 0 0) 22% 31% / 14% 13% no-repeat,
+    linear-gradient(var(--text) 0 0) 62% 74% / 26% 13% no-repeat,
+    repeating-linear-gradient(90deg, var(--text) 0 12px, transparent 12px 24px) 0 calc(50% - 1px) / 100% 3px no-repeat,
+    var(--surface);
+}
+:root[data-theme="retro"] .art-roadhopper::before { background: var(--text); border-radius: 0; box-shadow: -4px -12px 0 -5px var(--text), 4px -12px 0 -5px var(--text); }
+
 /* "How to play" button sitting on each menu card. */
 .game-list li { position: relative; }
 .card-help {

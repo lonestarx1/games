@@ -292,4 +292,37 @@ export const GAMES = [
       ],
     },
   },
+  {
+    id: "roadhopper",
+    title: "Road Hopper",
+    blurb: "Hop a bunny across roads, rivers and railways. How far can you get?",
+    help: "Arrow keys hop · Tap to hop forward, swipe to hop sideways or back · P pause",
+    start: "Press an arrow key or tap to hop",
+    module: "../pkg/roadhopper/roadhopper.js",
+    pointer: true,
+    howto: {
+      goal: "Hop your bunny as far up the trail as you can. Every new row you reach is a point. The trail never ends, and it gets busier the further you go.",
+      rules: [
+        "Each press hops one square: forward, back, left or right.",
+        "Cars, trucks and trains flatten you if they touch you.",
+        "Water is deadly, but you can ride the floating logs. A log carries you with it, so hop off before it takes you off the edge.",
+        "On railway tracks, a red light flashes just before a train races through. Don't stand on the track when it does.",
+        "Trees block your way. Hop around them.",
+        "The view slowly creeps forward behind you. If you fall off the bottom of the screen, the game ends.",
+        "Berries on the grass are worth 10 bonus points each.",
+      ],
+      controls: [
+        ["↑ or W (or Space)", "Hop forward"],
+        ["← → ↓", "Hop left, right or back"],
+        ["Tap", "Hop forward"],
+        ["Swipe", "Hop in that direction"],
+        ["P or Esc", "Pause"],
+      ],
+      tips: [
+        "Watch a lane for a moment before you hop. Traffic comes in rhythms.",
+        "Hopping sideways along the grass is the safest way to line up a gap.",
+        "On a river, hop from log to log as they pass. Don't wait until your log is about to drift off the screen.",
+      ],
+    },
+  },
 ];
