@@ -490,6 +490,37 @@ main { padding: 0 clamp(16px, 4vw, 32px) 48px; max-width: 1080px; margin: 0 auto
 }
 :root[data-theme="retro"] .art-roadhopper::before { background: var(--text); border-radius: 0; box-shadow: -4px -12px 0 -5px var(--text), 4px -12px 0 -5px var(--text); }
 
+.art-sudoku {
+  background:
+    linear-gradient(#7cf2ff40 0 0) 41.5% 36% / 8.5% 22% no-repeat,
+    /* thick box lines */
+    linear-gradient(#e8ecff66 0 0) 32% 14% / 2px 72% no-repeat,
+    linear-gradient(#e8ecff66 0 0) 50% 14% / 2px 72% no-repeat,
+    linear-gradient(#e8ecff66 0 0) 68% 14% / 2px 72% no-repeat,
+    /* thin cell lines */
+    repeating-linear-gradient(90deg, #ffffff1a 0 1px, transparent 1px 8.5%) 32% 14% / 36% 72% no-repeat,
+    repeating-linear-gradient(180deg, #ffffff1a 0 1px, transparent 1px 33.3%) 32% 14% / 36% 72% no-repeat,
+    linear-gradient(#11162c 0 0) 32% 14% / 36% 72% no-repeat,
+    linear-gradient(180deg, #0d1230, #090c1c);
+}
+.art-sudoku::before {
+  content: "5 3   7\\A 6   1 9\\A   9 8  ";
+  white-space: pre;
+  left: 34%; top: 17%;
+  font: 700 14px/1.65 "Space Grotesk", sans-serif;
+  color: #e8ecff;
+  letter-spacing: 0.35em;
+}
+:root[data-theme="retro"] .art-sudoku {
+  background:
+    linear-gradient(var(--text) 0 0) 32% 14% / 3px 72% no-repeat,
+    linear-gradient(var(--text) 0 0) 50% 14% / 3px 72% no-repeat,
+    linear-gradient(var(--text) 0 0) 68% 14% / 3px 72% no-repeat,
+    repeating-linear-gradient(180deg, var(--text) 0 1px, transparent 1px 33.3%) 32% 14% / 36% 72% no-repeat,
+    var(--surface);
+}
+:root[data-theme="retro"] .art-sudoku::before { font: 9px/2.4 "Press Start 2P", monospace; color: var(--text); }
+
 /* "How to play" button sitting on each menu card. */
 .game-list li { position: relative; }
 .card-help {
