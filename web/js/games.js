@@ -223,4 +223,42 @@ export const GAMES = [
       ],
     },
   },
+  {
+    id: "numbermerge",
+    title: "Number Merge",
+    blurb: "Slide the tiles and join matching numbers. How big can you build?",
+    help: "Arrow keys or swipe to slide · Z undo (3 per game) · G board size · N new game",
+    start: "Press an arrow key or swipe",
+    module: "../pkg/numbermerge/numbermerge.js",
+    pointer: true,
+    actions: [
+      { label: "Undo", code: "KeyZ" },
+      { label: "4×4 / 5×5", code: "KeyG" },
+      { label: "New game", code: "KeyN" },
+    ],
+    howto: {
+      goal: "Slide numbered tiles around the board. When two tiles with the same number bump into each other, they join into one tile with double the number. Try to build a 2048 tile, then keep going as long as you can.",
+      rules: [
+        "Every move slides all the tiles as far as they can go in one direction.",
+        "Two touching tiles with the same number merge: 2 + 2 makes 4, 4 + 4 makes 8, and so on.",
+        "A tile can only merge once per move.",
+        "After each move, a new 2 (or sometimes a 4) appears in an empty square.",
+        "Each merge adds the new tile's number to your score.",
+        "The game ends when the board is full and no tiles can merge.",
+        "You get 3 undos per game, one move back at a time.",
+      ],
+      controls: [
+        ["Arrow keys or W A S D", "Slide the tiles"],
+        ["Swipe (or drag with the mouse)", "Slide the tiles"],
+        ["Z", "Undo the last move"],
+        ["G", "Switch between 4 × 4 and 5 × 5 (new game)"],
+        ["N", "New game"],
+      ],
+      tips: [
+        "Pick a corner and keep your biggest tile there.",
+        "Mostly use two or three directions, and avoid the one that pulls your big tile out of its corner.",
+        "The 5 × 5 board has more room, so it's a good place to learn.",
+      ],
+    },
+  },
 ];

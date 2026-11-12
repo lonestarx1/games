@@ -394,6 +394,45 @@ main { padding: 0 clamp(16px, 4vw, 32px) 48px; max-width: 1080px; margin: 0 auto
 :root[data-theme="retro"] .art-klondike::before { font: 10px "Press Start 2P", monospace; color: var(--text); }
 :root[data-theme="retro"] .art-klondike::after { color: var(--surface); font: 12px "Press Start 2P", monospace; }
 
+.art-numbermerge {
+  background:
+    linear-gradient(#1f3b73 0 0) 33% 20% / 10% 26% no-repeat,
+    linear-gradient(#1f9e89 0 0) 45% 20% / 10% 26% no-repeat,
+    linear-gradient(#f2c94c 0 0) 57% 20% / 10% 26% no-repeat,
+    linear-gradient(#1a2142 0 0) 69% 20% / 10% 26% no-repeat,
+    linear-gradient(#1a2142 0 0) 33% 72% / 10% 26% no-repeat,
+    linear-gradient(#23558a 0 0) 45% 72% / 10% 26% no-repeat,
+    linear-gradient(#eb5757 0 0) 57% 72% / 10% 26% no-repeat,
+    linear-gradient(#9b51e0 0 0) 69% 72% / 10% 26% no-repeat,
+    linear-gradient(180deg, #11162c, #090c1c);
+}
+.art-numbermerge::before {
+  content: "2   16  128";
+  white-space: pre;
+  left: 35.5%; top: 26%;
+  font: 700 14px "Space Grotesk", sans-serif;
+  color: #e8ecff;
+  word-spacing: 0.35em;
+}
+.art-numbermerge::after { /* the big tile glows */
+  left: 69%; top: 59%; width: 10%; height: 26%; border-radius: 4px;
+  box-shadow: 0 0 18px #9b51e0;
+}
+:root[data-theme="retro"] .art-numbermerge {
+  background:
+    linear-gradient(var(--text) 0 0) 33% 20% / 10% 26% no-repeat,
+    linear-gradient(var(--text) 0 0) 45% 20% / 10% 26% no-repeat,
+    linear-gradient(var(--text) 0 0) 57% 20% / 10% 26% no-repeat,
+    linear-gradient(var(--surface-2) 0 0) 69% 20% / 10% 26% no-repeat,
+    linear-gradient(var(--surface-2) 0 0) 33% 72% / 10% 26% no-repeat,
+    linear-gradient(var(--text) 0 0) 45% 72% / 10% 26% no-repeat,
+    linear-gradient(var(--text) 0 0) 57% 72% / 10% 26% no-repeat,
+    linear-gradient(var(--text) 0 0) 69% 72% / 10% 26% no-repeat,
+    var(--surface);
+}
+:root[data-theme="retro"] .art-numbermerge::before { font: 9px "Press Start 2P", monospace; color: var(--surface); }
+:root[data-theme="retro"] .art-numbermerge::after { box-shadow: none; }
+
 /* "How to play" button sitting on each menu card. */
 .game-list li { position: relative; }
 .card-help {
