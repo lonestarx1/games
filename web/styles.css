@@ -355,6 +355,45 @@ main { padding: 0 clamp(16px, 4vw, 32px) 48px; max-width: 1080px; margin: 0 auto
 :root[data-theme="retro"] .art-minefinder::before { font: 12px "Press Start 2P", monospace; color: var(--text); text-shadow: 54px 32px 0 var(--text); }
 :root[data-theme="retro"] .art-minefinder::after { border-left-color: var(--surface); filter: none; }
 
+.art-klondike {
+  background:
+    /* fanned column of cards */
+    linear-gradient(#fbfaf6 0 0) 22% 20% / 12% 46% no-repeat,
+    linear-gradient(#fbfaf6 0 0) 36% 32% / 12% 46% no-repeat,
+    linear-gradient(#fbfaf6 0 0) 50% 44% / 12% 46% no-repeat,
+    /* card back */
+    linear-gradient(135deg, #4c5bd4, #7a4fd0) 72% 30% / 12% 46% no-repeat,
+    radial-gradient(120% 140% at 50% 0%, #145056, #08201f);
+}
+.art-klondike::before { /* suit marks */
+  content: "♠  ♥  ♦";
+  white-space: pre;
+  left: 23.5%; top: 23%;
+  font: 700 16px "Space Grotesk", sans-serif;
+  color: #1f2433;
+  letter-spacing: 0.9em;
+  text-shadow: none;
+}
+.art-klondike::after { /* foundation ace */
+  content: "A";
+  left: 71.5%; top: 30%; width: 12%; height: 46%;
+  display: grid; place-items: center;
+  font: 700 18px "Space Grotesk", sans-serif; color: #ffffffcc;
+}
+:root[data-theme="retro"] .art-klondike {
+  background:
+    linear-gradient(var(--surface) 0 0) 22% 20% / 12% 46% no-repeat,
+    linear-gradient(var(--surface) 0 0) 36% 32% / 12% 46% no-repeat,
+    linear-gradient(var(--surface) 0 0) 50% 44% / 12% 46% no-repeat,
+    linear-gradient(var(--text) 0 0) calc(22% - 3px) calc(20% - 3px) / calc(12% + 6px) calc(46% + 6px) no-repeat,
+    linear-gradient(var(--text) 0 0) calc(36% - 3px) calc(32% - 3px) / calc(12% + 6px) calc(46% + 6px) no-repeat,
+    linear-gradient(var(--text) 0 0) calc(50% - 3px) calc(44% - 3px) / calc(12% + 6px) calc(46% + 6px) no-repeat,
+    linear-gradient(var(--text) 0 0) 72% 30% / 12% 46% no-repeat,
+    var(--surface);
+}
+:root[data-theme="retro"] .art-klondike::before { font: 10px "Press Start 2P", monospace; color: var(--text); }
+:root[data-theme="retro"] .art-klondike::after { color: var(--surface); font: 12px "Press Start 2P", monospace; }
+
 /* "How to play" button sitting on each menu card. */
 .game-list li { position: relative; }
 .card-help {

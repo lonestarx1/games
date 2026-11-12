@@ -251,10 +251,18 @@ els.canvas.addEventListener("pointerdown", (e) => {
     };
     return;
   }
-  if (session.game.pointer_down(x, y)) e.preventDefault();
+  if (session.game.pointer_down(x, y)) {
+    e.preventDefault();
+    // Keep receiving moves and the release even if a drag leaves the canvas.
+    els.canvas.setPointerCapture?.(e.pointerId);
+  }
 });
-els.canvas.addEventListener("pointerup", () => {
-  if (!press) return;
+els.canvas.addEventListener("pointerup", (e) => {
+  if (!session) return;
+  if (!press) {
+    if (e.button === 0) session.game.pointer_up(...toLogical(e));
+    return;
+  }
   const { game, x, y } = press;
   cancelPress();
   if (session?.game === game) game.pointer_down(x, y);

@@ -74,6 +74,14 @@ dependencies = [
 ]
 
 [[package]]
+name = "klondike"
+version = "0.1.0"
+dependencies = [
+ "engine",
+ "wasm-bindgen",
+]
+
+[[package]]
 name = "mahjong"
 version = "0.1.0"
 dependencies = [
