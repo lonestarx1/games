@@ -433,6 +433,37 @@ main { padding: 0 clamp(16px, 4vw, 32px) 48px; max-width: 1080px; margin: 0 auto
 :root[data-theme="retro"] .art-numbermerge::before { font: 9px "Press Start 2P", monospace; color: var(--surface); }
 :root[data-theme="retro"] .art-numbermerge::after { box-shadow: none; }
 
+.art-stardefender {
+  background:
+    radial-gradient(1.5px 1.5px at 12% 30%, #cfd8ff 99%, transparent),
+    radial-gradient(1.5px 1.5px at 82% 18%, #cfd8ff 99%, transparent),
+    radial-gradient(1px 1px at 64% 70%, #cfd8ff 99%, transparent),
+    radial-gradient(1px 1px at 30% 80%, #cfd8ff 99%, transparent),
+    radial-gradient(10px 10px at 34% 30%, #5ef0a0 98%, transparent),
+    radial-gradient(10px 10px at 50% 30%, #5ef0a0 98%, transparent),
+    radial-gradient(10px 10px at 66% 30%, #5ef0a0 98%, transparent),
+    linear-gradient(180deg, #04050d, #0d1233);
+}
+.art-stardefender::before { /* ship */
+  left: calc(50% - 14px); bottom: 12%; width: 28px; height: 22px;
+  background: #7cf2ff;
+  clip-path: polygon(50% 0, 62% 45%, 100% 85%, 100% 100%, 50% 80%, 0 100%, 0 85%, 38% 45%);
+  filter: drop-shadow(0 0 8px #7cf2ff);
+}
+.art-stardefender::after { /* shot */
+  left: calc(50% - 1.5px); top: 46%; width: 3px; height: 16px; border-radius: 2px;
+  background: #7cf2ff; box-shadow: 0 0 10px #7cf2ff;
+}
+:root[data-theme="retro"] .art-stardefender {
+  background:
+    radial-gradient(10px 10px at 34% 30%, var(--text) 98%, transparent),
+    radial-gradient(10px 10px at 50% 30%, var(--text) 98%, transparent),
+    radial-gradient(10px 10px at 66% 30%, var(--text) 98%, transparent),
+    var(--surface);
+}
+:root[data-theme="retro"] .art-stardefender::before { background: var(--text); filter: none; }
+:root[data-theme="retro"] .art-stardefender::after { background: var(--text); box-shadow: none; border-radius: 0; }
+
 /* "How to play" button sitting on each menu card. */
 .game-list li { position: relative; }
 .card-help {

@@ -261,4 +261,35 @@ export const GAMES = [
       ],
     },
   },
+  {
+    id: "stardefender",
+    title: "Star Defender",
+    blurb: "Hold the line against waves of swooping aliens. Grab power-ups, dodge divers.",
+    help: "← → move · hold Space to fire · P pause · On touch: drag to steer, it fires by itself",
+    start: "Press Space or tap to launch",
+    module: "../pkg/stardefender/stardefender.js",
+    pointer: true,
+    howto: {
+      goal: "Aliens fly in and hover in formation above you. Shoot them all down to clear the wave. Every wave is faster and fires more.",
+      rules: [
+        "You have 3 ships. Getting hit by an alien's shot, or by a diving alien, costs one. You flash for a moment afterwards and can't be hit.",
+        "The formation slowly sinks toward you, and sways faster as it gets lower and as its numbers drop. If it reaches your ship, the game is over.",
+        "Some aliens break away and dive at you. Shooting one mid-dive is worth double.",
+        "Green drones are worth 10 points, pink stingers 20 and gold wardens 40. Wardens are armoured and need two hits.",
+        "Clearing a wave gives a bonus of 100 × the wave number. You get an extra ship every 5,000 points.",
+        "Destroyed aliens sometimes drop a capsule. Fly into it to collect it: T is twin shot, R is rapid fire, S is a shield that blocks one hit.",
+      ],
+      controls: [
+        ["← → or A D", "Move"],
+        ["Space (hold) or ↑", "Fire"],
+        ["Drag on the screen", "Steer on touch screens; fires automatically"],
+        ["P or Esc", "Pause"],
+      ],
+      tips: [
+        "Thin out the bottom rows first. The lower the formation gets, the less time you have.",
+        "Keep moving. Standing still under the formation makes you an easy target.",
+        "Stingers love to dive. Keep an eye on the pink ones.",
+      ],
+    },
+  },
 ];
